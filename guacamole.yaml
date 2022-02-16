@@ -24,5 +24,6 @@ services:
       LDAP_HOSTNAME: "ldap.latchee.com"
       LDAP_ENCRYPTION_METHOD: "starttls"
       LDAP_USER_BASE_DN: "ou=admin,ou=users,ou=people,dc=latchee,dc=com"
+      TOTP_ENABLED: "true"
     depends_on:
       - guacd
