@@ -3,13 +3,15 @@ services:
 
   guacd:
     container_name: guacd
-    image: guacamole/guacd
+    image: 'guacamole/guacd:latest'
     restart: unless-stopped
 
   guacamole:
     container_name: guacamole
     image: 'guacamole/guacamole:latest'
     restart: unless-stopped
+    links: 
+      - guacd:guacd
     ports:
       - '8081:8080'
     environment:
