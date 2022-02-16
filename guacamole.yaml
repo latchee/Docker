@@ -1,0 +1,26 @@
+version: '3'
+services:
+
+  guacd:
+    container_name: guacd
+    image: guacamole/guacd
+    restart: unless-stopped
+
+  guacamole:
+    container_name: guacamole
+    image: 'guacamole/guacamole:latest'
+    restart: unless-stopped
+    ports:
+      - '8081:8080'
+    environment:
+      GUACD_HOSTNAME: "guacd"
+      MYSQL_HOSTNAME: "192.168.1.105"
+      MYSQL_PORT: "3306"
+      MYSQL_DATABASE: "guacamole_db"
+      MYSQL_USER: "guacamole_user"
+      MYSQL_PASSWORD: "${{ secrets.GUAC_DB_PWD }}"
+      LDAP_HOSTNAME: "ldap.latchee.com"
+      LDAP_ENCRYPTION_METHOD: "starttls"
+      LDAP_USER_BASE_DN: "ou=admin,ou=users,ou=people,dc=latchee,dc=com"
+    depends_on:
+      - guacd
