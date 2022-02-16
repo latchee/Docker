@@ -18,7 +18,7 @@ services:
       MYSQL_PORT: "3306"
       MYSQL_DATABASE: "guacamole_db"
       MYSQL_USER: "guacamole_user"
-      MYSQL_PASSWORD: "${{ secrets.GUAC_DB_PWD }}"
+      MYSQL_PASSWORD: "${GUAC_DB_PWD}"
       LDAP_HOSTNAME: "ldap.latchee.com"
       LDAP_ENCRYPTION_METHOD: "starttls"
       LDAP_USER_BASE_DN: "ou=admin,ou=users,ou=people,dc=latchee,dc=com"
