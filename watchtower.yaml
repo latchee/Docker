@@ -9,8 +9,7 @@ services:
       WATCHTOWER_NOTIFICATIONS: email
       WATCHTOWER_NOTIFICATION_EMAIL_FROM: watchtower@latchee.com
       WATCHTOWER_NOTIFICATION_EMAIL_TO: mail@latchee.com
-      # you have to use a network alias here, if you use your own certificate
-      WATCHTOWER_NOTIFICATION_EMAIL_SERVER: 192.168.1.201
+      WATCHTOWER_NOTIFICATION_EMAIL_SERVER: mail.latchee.com
       WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT: 25
       WATCHTOWER_NOTIFICATION_EMAIL_DELAY: 2
     volumes:
