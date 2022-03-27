@@ -1,0 +1,27 @@
+---
+version: "2.1"
+services:
+  grocy:
+    image: lscr.io/linuxserver/grocy
+    container_name: grocy
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Pacific/Auckland
+    volumes:
+      - grocy:/config
+    ports:
+      - 9283:80
+    restart: unless-stopped
+
+  barcodebuddy:
+    image: f0rc3/barcodebuddy-docker:latest
+    containername: barcodebuddy
+    restart: unless-stopped
+    environment:
+      BBUDDY_EXTERNAL_GROCY_URL: grocy.latchee.com
+    volumes:
+      - bbconfig:/config
+    ports:
+      - 8080:80
+      - 8443:443
