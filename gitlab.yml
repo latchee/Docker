@@ -3,15 +3,6 @@ services:
   web:
     image: 'gitlab/gitlab-ee:latest'
     restart: unless-stopped
-    hostname: 'gitlab.latchee.com'
-    privileged: true
-    ulimits:
-      core: 0
-      sigpending: 62793
-      nproc: 131072
-      nofile:
-        soft: 60000
-        hard: 60000
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.latchee.com'
