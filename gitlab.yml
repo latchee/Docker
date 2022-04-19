@@ -2,43 +2,47 @@ version: '3.6'
 services:
   web:
     image: 'gitlab/gitlab-ee:latest'
-    restart: never
+    restart: unless-stopped
     environment:
+      PATH=/opt/gitlab/embedded/bin:/opt/gitlab/bin:/assets:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      LANG=C.UTF-8
+      EDITOR=/bin/vi
+      TERM=xterm
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.latchee.com'
         ### GitLab email server settings
-        gitlab_rails['smtp_enable'] = true
-        gitlab_rails['smtp_address'] = 'mail.latchee.com'
-        gitlab_rails['smtp_port'] = 25
-        gitlab_rails['smtp_enable_starttls_auto'] = true
+        #gitlab_rails['smtp_enable'] = true
+        #gitlab_rails['smtp_address'] = 'mail.latchee.com'
+        #gitlab_rails['smtp_port'] = 25
+        #gitlab_rails['smtp_enable_starttls_auto'] = true
         # gitlab_rails['smtp_tls'] = false
-        gitlab_rails['gitlab_email_from'] = 'gitlab@latchee.com'
-        gitlab_rails['gitlab_email_display_name'] = 'Gitlab'
+        #gitlab_rails['gitlab_email_from'] = 'gitlab@latchee.com'
+        #gitlab_rails['gitlab_email_display_name'] = 'Gitlab'
         ### LDAP Settings
-        gitlab_rails['ldap_enabled'] = true
-        gitlab_rails['ldap_servers'] = YAML.load <<-'EOS'
-          main: # 'main' is the GitLab 'provider ID' of this LDAP server
-            label: 'LDAP'
-            host: 'ldap.latchee.com'
-            port: 389
-            uid: 'sAMAccountName'
-            encryption: 'start_tls' # "start_tls" or "simple_tls" or "plain"
-            base: 'ou=admin,ou=users,ou=people,dc=latchee,dc=com'
+        #gitlab_rails['ldap_enabled'] = true
+        #gitlab_rails['ldap_servers'] = YAML.load <<-'EOS'
+        #  main: # 'main' is the GitLab 'provider ID' of this LDAP server
+        #    label: 'LDAP'
+        #    host: 'ldap.latchee.com'
+        #    port: 389
+        #    uid: 'sAMAccountName'
+        #    encryption: 'start_tls' # "start_tls" or "simple_tls" or "plain"
+        #    base: 'ou=admin,ou=users,ou=people,dc=latchee,dc=com'
         ### GitLab database settings
-        postgresql['enable'] = false
-        gitlab_rails['db_adapter'] = 'postgresql'
+        #postgresql['enable'] = false
+        #gitlab_rails['db_adapter'] = 'postgresql'
         # gitlab_rails['db_encoding'] = 'utf8'
-        gitlab_rails['db_host'] = '192.168.1.107'
-        gitlab_rails['db_port'] = 5432
-        gitlab_rails['db_username'] = 'gitlab'
-        gitlab_rails['db_password'] = '${GL_PGSQL_PWD}'
-        gitlab_rails['db_database'] = "gitlab"
+        #gitlab_rails['db_host'] = '192.168.1.107'
+        #gitlab_rails['db_port'] = 5432
+        #gitlab_rails['db_username'] = 'gitlab'
+        #gitlab_rails['db_password'] = '${GL_PGSQL_PWD}'
+        #gitlab_rails['db_database'] = "gitlab"
     ports:
       - '8081:80'
       - '8444:443'
       - '2022:22'
     volumes:
-      - 'gitlab_config:/etc/gitlab'
-      - 'gitlab_logs:/var/log/gitlab'
-      - 'gitlab_data:/var/opt/gitlab'
+      - '$GITLAB_HOME/config:/etc/gitlab'
+      - '$GITLAB_HOME/logs:/var/log/gitlab'
+      - '$GITLAB_HOME/data:/var/opt/gitlab'
     shm_size: '256m'
