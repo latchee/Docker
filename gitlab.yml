@@ -4,6 +4,7 @@ services:
     image: 'gitlab/gitlab-ee:latest'
     restart: always
     hostname: 'gitlab.latchee.com'
+    privileged: true
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.latchee.com'
@@ -15,6 +16,16 @@ services:
         # gitlab_rails['smtp_tls'] = false
         gitlab_rails['gitlab_email_from'] = 'gitlab@latchee.com'
         gitlab_rails['gitlab_email_display_name'] = 'Gitlab'
+        ### LDAP Settings
+        gitlab_rails['ldap_enabled'] = true
+        gitlab_rails['ldap_servers'] = YAML.load <<-'EOS'
+          main: # 'main' is the GitLab 'provider ID' of this LDAP server
+            label: 'LDAP'
+            host: 'ldap.latchee.com'
+            port: 389
+            uid: 'sAMAccountName'
+            encryption: 'start_tls' # "start_tls" or "simple_tls" or "plain"
+            base: 'ou=admin,ou=users,ou=people,dc=latchee,dc=com'
         ### GitLab database settings
         postgresql['enable'] = false
         gitlab_rails['db_adapter'] = 'postgresql'
