@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  server:
+  gitea:
     image: gitea/gitea:latest
     container_name: gitea
     environment:
@@ -20,3 +20,5 @@ services:
     ports:
       - "3000:3000"
       - "222:22"
+volumes:
+  gitea:
