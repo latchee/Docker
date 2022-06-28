@@ -3,9 +3,12 @@ services:
   dockergc:
     image: clockworksoul/docker-gc-cron:latest
     container_name: docker-gc
+    restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./docker-gc-exclude:/etc/docker-gc-exclude
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - CRON="0 7 * * *"
       - FORCE_IMAGE_REMOVAL=1
@@ -13,4 +16,4 @@ services:
       - GRACE_PERIOD_SECONDS=604800
       - DRY_RUN=0
       - CLEAN_UP_VOLUMES=1
-      - TZ="Pacific/Auckland"
+      - TZ=Pacific/Auckland
