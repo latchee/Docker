@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./docker-gc-exclude:/etc/docker-gc-exclude
+#      - ./docker-gc-exclude:/etc/docker-gc-exclude
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     environment:
