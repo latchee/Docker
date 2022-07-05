@@ -13,7 +13,7 @@ services:
       - CRON="0 7 * * *"
       - FORCE_IMAGE_REMOVAL=1
       - FORCE_CONTAINER_REMOVAL=0
-      - GRACE_PERIOD_SECONDS=604800
+      - GRACE_PERIOD_SECONDS=86400
       - DRY_RUN=0
       - CLEAN_UP_VOLUMES=1
       - TZ=Pacific/Auckland
