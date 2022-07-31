@@ -13,7 +13,7 @@ services:
       - TTRSS_DB_HOST=192.168.1.107
     volumes:
       - app:/var/www/html
-      - tt-rss/config.d:/opt/tt-rss/config.d
+      - tt-rss:/opt/tt-rss
 
   updater:
     image: cthulhoo/ttrss-fpm-pgsql-static
@@ -22,7 +22,7 @@ services:
       - .env
     volumes:
       - app:/var/www/html
-      - tt-rss/config.d:/opt/tt-rss/config.d:ro
+      - tt-rss:/opt/tt-rss:ro
     depends_on:
       - app
     command: /opt/tt-rss/updater.sh
