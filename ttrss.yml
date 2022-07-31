@@ -11,6 +11,7 @@ services:
       - TTRSS_DB_NAME=ttrss
       - TTRSS_DB_PASS=${TTRSS_DB_PASS}
       - TTRSS_DB_HOST=192.168.1.107
+      - TTRSS_SELF_URL_PATH=http://192.168.1.101:8280/tt-rss
     volumes:
       - app:/var/www/html
       - tt-rss:/opt/tt-rss
