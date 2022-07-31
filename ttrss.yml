@@ -8,8 +8,8 @@ services:
       - .env
     environment:
       - TTRSS_DB_USER=ttrss
-      - TTRSS_DB_NAME=${TTRSS_DB_PASS}
-      - TTRSS_DB_PASS=ttrss
+      - TTRSS_DB_NAME=ttrss
+      - TTRSS_DB_PASS=${TTRSS_DB_PASS}
       - TTRSS_DB_HOST=192.168.1.107
     volumes:
       - app:/var/www/html
