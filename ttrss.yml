@@ -39,4 +39,4 @@ services:
 
 volumes:
   app:
-  ttrss:
+  tt-rss:
