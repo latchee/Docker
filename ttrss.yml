@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  app:
+    image: cthulhoo/ttrss-fpm-pgsql-static
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TTRSS_DB_USER=ttrss
+      - TTRSS_DB_NAME=${TTRSS_DB_PASS}
+      - TTRSS_DB_PASS=ttrss
+      - TTRSS_DB_HOST=192.168.1.107
+    volumes:
+      - app:/var/www/html
+      - tt-rss/config.d:/opt/tt-rss/config.d
+
+  updater:
+    image: cthulhoo/ttrss-fpm-pgsql-static
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - app:/var/www/html
+      - tt-rss/config.d:/opt/tt-rss/config.d:ro
+    depends_on:
+      - app
+    command: /opt/tt-rss/updater.sh
+
+  web-nginx:
+    image: cthulhoo/ttrss-web-nginx
+    restart: unless-stopped
+    ports:
+      - 8280:80
+    volumes:
+      - app:/var/www/html:ro
+    depends_on:
+      - app
+
+volumes:
+  app:
+  ttrss:
