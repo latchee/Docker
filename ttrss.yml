@@ -13,8 +13,6 @@ services:
     volumes:
       - app:/var/www/html
       - tt-rss:/opt/tt-rss
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
 
   updater:
     image: cthulhoo/ttrss-fpm-pgsql-static
@@ -27,8 +25,6 @@ services:
     volumes:
       - app:/var/www/html
       - tt-rss:/opt/tt-rss:ro
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
     depends_on:
       - app
     command: /opt/tt-rss/updater.sh
@@ -40,8 +36,6 @@ services:
       - 8280:80
     volumes:
       - app:/var/www/html:ro
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
     depends_on:
       - app
 
