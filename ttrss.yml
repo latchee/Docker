@@ -13,8 +13,6 @@ services:
     volumes:
       - app:/var/www/html
       - tt-rss:/opt/tt-rss
-    networks:
-      - ttrssbridge
 
   updater:
     image: cthulhoo/ttrss-fpm-pgsql-static
@@ -27,8 +25,6 @@ services:
     volumes:
       - app:/var/www/html
       - tt-rss:/opt/tt-rss:ro
-    networks:
-      - ttrssbridge
     depends_on:
       - app
     command: /opt/tt-rss/updater.sh
@@ -40,15 +36,9 @@ services:
       - 8280:80
     volumes:
       - app:/var/www/html:ro
-    networks:
-      - ttrssbridge
     depends_on:
       - app
 
 volumes:
   app:
   tt-rss:
-
-networks:
-  ttrssbridge:
-    driver: bridge
