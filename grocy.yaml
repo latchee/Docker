@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
 
   barcodebuddy:
-    image: f0rc3/barcodebuddy-docker:latest
+    image: f0rc3/barcodebuddy:latest
     containername: barcodebuddy
     restart: unless-stopped
     environment:
